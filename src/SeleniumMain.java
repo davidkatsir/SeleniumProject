@@ -9,6 +9,6 @@ public class SeleniumMain {
         System.out.println(driver.getTitle());
         System.out.println(driver.getCurrentUrl());
         driver.quit();
-        System.out.println("Test");
+        System.out.println("Test1");
     }
 }
