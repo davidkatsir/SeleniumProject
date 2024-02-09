@@ -34,13 +34,12 @@ public class SeleniumTargil1 {
         System.out.println(erroMessage);
 
         // Verifying that the Error message is as expected
-        String expectedErrorMessage = "We couldn't setup your account. Please try a different browser or device.";
+        String expectedErrorMessage = "We couldn't set up that account, sorry. Please try again, or contact an admin (link is above).";
         if (erroMessage.equals(expectedErrorMessage)) {
             System.out.println("Error message is as expected");
         } else {
             System.out.println("Error message is NOT as expected");
         }
-
         Thread.sleep(1000);
         driver.quit();
     }
