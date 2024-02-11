@@ -43,11 +43,7 @@ public class SeleniumTargil5 {
         // Verify total tasks
         Thread.sleep(1000);
         String totalTasksText = driver.findElement(By.cssSelector(totalTasksTextLocator)).getText();
-        if (totalTasksText.equals("2")) {
-            System.out.println("Total tasks is correct: " + totalTasksText);
-        } else {
-            System.out.println("Error: Expected 2 tasks, found " + totalTasksText);
-        }
+        verifyTotalTasksNumber(totalTasksText, "2");
 
         // Wait for page to load (Optional)
         Thread.sleep(1000);
@@ -71,13 +67,17 @@ public class SeleniumTargil5 {
         // Verify updated total tasks
         Thread.sleep(500);
         totalTasksText = driver.findElement(By.cssSelector(totalTasksTextLocator)).getText();
-        if (totalTasksText.equals("1")) {
-            System.out.println("Total tasks updated correctly: " + totalTasksText);
-        } else {
-            System.out.println("Error: Expected 1 task, found " + totalTasksText);
-        }
+        verifyTotalTasksNumber(totalTasksText, "1");
 
         // Close browser
         driver.quit();
+    }
+
+    private static void verifyTotalTasksNumber(String totalTasksText, String expectedTotalTasksText) {
+        if (totalTasksText.equals(expectedTotalTasksText)) {
+            System.out.println("Total tasks is correct: " + totalTasksText);
+        } else {
+            System.out.println("Error: Expected " + expectedTotalTasksText + " tasks, found " + totalTasksText);
+        }
     }
 }
