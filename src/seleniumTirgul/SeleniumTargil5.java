@@ -67,9 +67,10 @@ public class SeleniumTargil5 {
         // Confirm deletion
         WebElement okButton = driver.findElement(By.cssSelector(okButtonLocator));
         okButton.click(); // Click OK
-        Thread.sleep(2000);
 
         // Verify updated total tasks
+        Thread.sleep(500);
+        totalTasksText = driver.findElement(By.cssSelector(totalTasksTextLocator)).getText();
         if (totalTasksText.equals("1")) {
             System.out.println("Total tasks updated correctly: " + totalTasksText);
         } else {
