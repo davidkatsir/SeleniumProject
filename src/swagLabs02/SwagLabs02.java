@@ -10,7 +10,7 @@ public class SwagLabs02 {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        String sauceDemoLocatorUrl = "https://www.saucedemo.com/";
+        String sauceDemoUrl = "https://www.saucedemo.com/";
 
         // Page Locators -
         String userNameLocator = "[data-test=\"username\"]";
@@ -30,7 +30,7 @@ public class SwagLabs02 {
 
 
         // TC 02 - Failed Login: Valid Username & Invalid Password
-        driver.get(sauceDemoLocatorUrl);
+        driver.get(sauceDemoUrl);
 
         // Insert User Name
         WebElement userName = driver.findElement(By.cssSelector(userNameLocator));
