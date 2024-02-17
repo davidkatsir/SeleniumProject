@@ -15,18 +15,40 @@ public class SwagLabsFinalEx {
 
         String validUser = "standard_user";
         String validPassword = "secret_sauce";
-//        String expectedWrongLoginErrorMessage = "Epic sadface: Username and password do not match any user in this service";
-//        String nullPasswordLoginError = "Epic sadface: Password is required";
-//        String nullUserNameLoginError = "Epic sadface: Username is required";
+        String firstName = "David";
+        String lastName = "Katsir";
+        String postalCode = "12456987";
 
         driver.get(sauceDemoBaseUrl);
 
-        // Step 01 - Successful Login: Valid Username & Valid Password
-        successfulLogin(driver, validUser, validPassword, InventoryPageFinalEx.inventoryPageUrl);
-
-        // Step 02 - in Inventory page, add item "Sauce Labs Backpack" to cart
+        // Step 01 - Successful Login: Valid Username & Valid Password + Validate navigation to Inventory page
+        login(driver, validUser, validPassword);
         validateNavigation(driver, InventoryPageFinalEx.inventoryPageUrl);
-        InventoryPageFinalEx.addItemToCart(driver, InventoryPageFinalEx.addToCart_SauceLabsBackpackButton);
+
+        // Step 02 - in Inventory page, add item "Sauce Labs Backpack" to cart and validate that
+        // the Add to Cart button is now - Remove
+        InventoryPageFinalEx.addItemToCartAndVerifyButtonCaption
+                (driver, InventoryPageFinalEx.addToCart_SauceLabsBackpackButtonLocator, InventoryPageFinalEx.removeFromCart_SauceLabsBackpackButtonLocator);
+        // Validate Cart bubble value
+        validateCartBadgeValue(driver, "1", InventoryPageFinalEx.shoppingCartBadgeLocator);
+
+        // Step 03 - Press on the cart icon
+        clickElement(driver, InventoryPageFinalEx.shoppingCartBadgeLocator);
+        // "YOUR CART" screen and product details will be displayed
+        validateNavigation(driver, YourCartPageFinalEx.yourCartPageUrl);
+        // verify details are correct
+        YourCartPageFinalEx.validateYourCartItems(driver, "1", "Sauce Labs Backpack", "$29.99");
+
+        // Step 04 - Press "CHECKOUT" button => "CHECKOUT: YOUR INFORMATION" screen will appear successfully
+        clickElement(driver, YourCartPageFinalEx.checkoutButtonLocator);
+        validateNavigation(driver, CheckoutStepOnePageFinalEx.checkoutStepOnePageUrl);
+
+        // Step 05 - Insert FIRST NAME , LAST NAME , ZIP(pre-con)   and press "CONTINUE" button
+        CheckoutStepOnePageFinalEx.addPersonalDetails(driver, firstName, lastName, postalCode);
+        clickElement(driver, CheckoutStepOnePageFinalEx.continueButtonLocator);
+        // CHECKOUT OVERVIEW SCREEN WILL appear successfully.
+        validateNavigation(driver, CheckOutStepTwoPageFinalEx.checkoutStepTwoPageUrl);
+        // verify details are correct ==> There is no way to verify that in this page
 
 
         driver.quit();
@@ -45,33 +67,30 @@ public class SwagLabsFinalEx {
         loginButtonElement.click();
     }
 
-    // Helper method to get error message
-    static String getErrorMessage(WebDriver driver) {
-        WebElement errorMessageElement = driver.findElement(By.cssSelector(LoginPageFinalEx.loginErrorMessageLocator));
-        return errorMessageElement.getText();
-    }
-
-    // Helper method for assertions
-    static void verifyErrorMessage(String expectedMessage, String actualMessage) {
-        if (expectedMessage.equals(actualMessage)) {
-            System.out.println("TC Passed - Error message matches expected message: " + expectedMessage);
-        } else {
-            System.out.println("TC Failed - Error message does not match! Actual message is: " + actualMessage);
-        }
-    }
-
-    // Successful Login test cases
-    public static void successfulLogin(WebDriver driver, String userName, String passWord, String expectedPageUrl) {
-        login(driver, userName, passWord);
-        validateNavigation(driver, expectedPageUrl);
-    }
-
+    // Validate Navigation
     public static void validateNavigation(WebDriver driver, String expectedPageUrl) {
         String currentUrl = driver.getCurrentUrl();
         if (expectedPageUrl.equals(currentUrl)) {
-            System.out.println("Step Passed - Current URL matches expected URL: " + expectedPageUrl);
+            System.out.println("Validation Passed - Current URL matches expected URL: " + expectedPageUrl);
         } else {
-            System.out.println("Step Failed - Current URL does not match! Actual URL is: " + currentUrl);
+            System.out.println("Validation Failed - Current URL does not match! Actual URL is: " + currentUrl);
         }
+    }
+
+    // Validate Cart Badge Value
+    public static void validateCartBadgeValue(WebDriver driver, String cartBadgeExpectedValue, String cartBadgeSelector) {
+        WebElement cartBadgeElement = driver.findElement(By.cssSelector(cartBadgeSelector));
+        String cartBadgeActualValue = cartBadgeElement.getText();
+        if (cartBadgeExpectedValue.equals(cartBadgeActualValue)) {
+            System.out.println("Validation Passed - Cart badge value matches expected value: " + cartBadgeExpectedValue);
+        } else {
+            System.out.println("Validation failed - Cart badge value Does Not match expected value! Actual value is: " + cartBadgeActualValue);
+        }
+    }
+
+    // Click Element
+    public static void clickElement(WebDriver driver, String elementSelectorToClick) {
+        WebElement elementToClick = driver.findElement(By.cssSelector(elementSelectorToClick));
+        elementToClick.click();
     }
 }
