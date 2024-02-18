@@ -73,7 +73,7 @@ public class SwagLabsFinalEx {
         //CHECKOUT: COMPLETE!  Screen will appear
         validateNavigation(driver, CheckoutCompletePageFinalEx.checkoutCompletePageUrl);
         //with a confirmation message "THANK YOU FOR YOUR ORDER!"
-        CheckoutCompletePageFinalEx.validateCheckoutCompleteTestFields(driver, checkoutCompleteThankYouHeader, checkoutCompleteFullText);
+        CheckoutCompletePageFinalEx.validateCheckoutCompleteTextFields(driver, checkoutCompleteThankYouHeader, checkoutCompleteFullText);
         //verify cart bubble disappear ==> Will not be tested in this test
         clickElement(driver, CheckoutCompletePageFinalEx.CheckoutCompleteBackToHomeButtonLocator);
         validateNavigation(driver, InventoryPageFinalEx.inventoryPageUrl);

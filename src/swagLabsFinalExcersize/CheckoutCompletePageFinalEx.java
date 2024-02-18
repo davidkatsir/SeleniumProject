@@ -12,7 +12,7 @@ public class CheckoutCompletePageFinalEx {
     public static final String CheckoutCompleteBackToHomeButtonLocator = "[id=\"back-to-products\"]";
 
 
-    public static void validateCheckoutCompleteTestFields(WebDriver driver, String thankYouHeader, String fullText) {
+    public static void validateCheckoutCompleteTextFields(WebDriver driver, String thankYouHeader, String fullText) {
         WebElement thankYouHeaderElement = driver.findElement(By.cssSelector(CheckoutCompleteThankYouHeaderLocator));
         String actualThankYouHeader = thankYouHeaderElement.getText();
         if (actualThankYouHeader.equals(thankYouHeader)) {
