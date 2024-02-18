@@ -18,7 +18,22 @@ public class SwagLabsFinalEx {
         String firstName = "David";
         String lastName = "Katsir";
         String postalCode = "12456987";
+        String cartBadgeQty = "1";
+        String inventoryItemQty = "1";
+        String inventoryItemName = "Sauce Labs Backpack";
+        String inventoryItemPrice = "$29.99";
+        String checkoutOverviewItemQty = "1";
+        String checkoutOverviewItemName = "Sauce Labs Backpack";
+        String checkoutOverviewItemPrice = "$29.99";
+        String checkoutOverviewPaymentInformation = "SauceCard #31337";
+        String checkoutOverviewShippingInformation = "Free Pony Express Delivery!";
+        String checkoutOverviewItemTotal = "Item total: $29.99";
+        String checkoutOverviewItemTax = "Tax: $2.40";
+        String checkoutOverviewSummaryTotal = "Total: $32.39";
+        String checkoutCompleteThankYouHeader = "Thank you for your order!";
+        String checkoutCompleteFullText = "Your order has been dispatched, and will arrive just as fast as the pony can get there!";
 
+        // Test case: Order Product (E2E)
         driver.get(sauceDemoBaseUrl);
 
         // Step 01 - Successful Login: Valid Username & Valid Password + Validate navigation to Inventory page
@@ -30,14 +45,14 @@ public class SwagLabsFinalEx {
         InventoryPageFinalEx.addItemToCartAndVerifyButtonCaption
                 (driver, InventoryPageFinalEx.addToCart_SauceLabsBackpackButtonLocator, InventoryPageFinalEx.removeFromCart_SauceLabsBackpackButtonLocator);
         // Validate Cart bubble value
-        validateCartBadgeValue(driver, "1", InventoryPageFinalEx.shoppingCartBadgeLocator);
+        validateCartBadgeValue(driver, cartBadgeQty, InventoryPageFinalEx.shoppingCartBadgeLocator);
 
         // Step 03 - Press on the cart icon
         clickElement(driver, InventoryPageFinalEx.shoppingCartBadgeLocator);
         // "YOUR CART" screen and product details will be displayed
         validateNavigation(driver, YourCartPageFinalEx.yourCartPageUrl);
         // verify details are correct
-        YourCartPageFinalEx.validateYourCartItems(driver, "1", "Sauce Labs Backpack", "$29.99");
+        YourCartPageFinalEx.validateYourCartItems(driver, inventoryItemQty, inventoryItemName, inventoryItemPrice);
 
         // Step 04 - Press "CHECKOUT" button => "CHECKOUT: YOUR INFORMATION" screen will appear successfully
         clickElement(driver, YourCartPageFinalEx.checkoutButtonLocator);
@@ -48,8 +63,20 @@ public class SwagLabsFinalEx {
         clickElement(driver, CheckoutStepOnePageFinalEx.continueButtonLocator);
         // CHECKOUT OVERVIEW SCREEN WILL appear successfully.
         validateNavigation(driver, CheckOutStepTwoPageFinalEx.checkoutStepTwoPageUrl);
-        // verify details are correct ==> There is no way to verify that in this page
+        // verify details are correct
+        CheckOutStepTwoPageFinalEx.validateCheckoutOverviewDetails(driver, checkoutOverviewItemQty, checkoutOverviewItemName,
+                checkoutOverviewItemPrice, checkoutOverviewPaymentInformation, checkoutOverviewShippingInformation,
+                checkoutOverviewItemTotal, checkoutOverviewItemTax, checkoutOverviewSummaryTotal);
 
+        // Step 06 - Press "FINISH" button
+        clickElement(driver, CheckOutStepTwoPageFinalEx.checkoutOverviewFinishButtonLocator);
+        //CHECKOUT: COMPLETE!  Screen will appear
+        validateNavigation(driver, CheckoutCompletePageFinalEx.checkoutCompletePageUrl);
+        //with a confirmation message "THANK YOU FOR YOUR ORDER!"
+        CheckoutCompletePageFinalEx.validateCheckoutCompleteTestFields(driver, checkoutCompleteThankYouHeader, checkoutCompleteFullText);
+        //verify cart bubble disappear ==> Will not be tested in this test
+        clickElement(driver, CheckoutCompletePageFinalEx.CheckoutCompleteBackToHomeButtonLocator);
+        validateNavigation(driver, InventoryPageFinalEx.inventoryPageUrl);
 
         driver.quit();
     }
