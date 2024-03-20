@@ -27,7 +27,7 @@ public class SeleniumTargil1 {
 
         // Click Sign Up
 //        driver.findElement(By.cssSelector("[name=\"commit\"]")).click();                   // Name can be used
-        driver.findElement(By.cssSelector("[class=\"submit btn btn-primary\"]")).click();  // Class is stronger but we have 3
+        driver.findElement(By.cssSelector("[class=\"submit btn btn-primary\"]")).click();  // Class is stronger
 
         // Read and print Error message
         String erroMessage = driver.findElement(By.cssSelector("[class=\"alert alert-error alert-block error\"]")).getText();
