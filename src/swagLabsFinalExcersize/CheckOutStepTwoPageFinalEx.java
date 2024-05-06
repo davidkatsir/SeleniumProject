@@ -14,7 +14,7 @@ public class CheckOutStepTwoPageFinalEx {
     public static final String checkoutOverviewShippingInformationLocator = "[class=\"summary_info\"] [class=\"summary_value_label\"]:nth-child(4)";
     public static final String checkoutOverviewItemTotalLocator = "[class=\"summary_subtotal_label\"]";
     public static final String checkoutOverviewItemTaxLocator = "[class=\"summary_tax_label\"]";
-    public static final String checkoutOverviewSummaryTotalLabelLocator = "[class=\"summary_info_label summary_total_label\"]";
+    public static final String checkoutOverviewSummaryTotalLabelLocator = "[class=\"summary_total_label\"]";
     public static final String checkoutOverviewFinishButtonLocator = "[id=\"finish\"]";
 
     public static void validateCheckoutOverviewDetails

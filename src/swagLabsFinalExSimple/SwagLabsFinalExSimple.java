@@ -11,7 +11,13 @@ public class SwagLabsFinalExSimple {
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
 
-        tc110OrderProduct(driver, "standard_user", "secret_sauce", "Meytal", "Shitrit", "123456");
+        tc110OrderProduct(driver,
+                "standard_user",
+                "secret_sauce",
+                "Meytal",
+                "Shitrit",
+                "123456"
+        );
 
         driver.quit();
 
@@ -109,8 +115,14 @@ public class SwagLabsFinalExSimple {
     }
 
     //tc - order one product
-    public static void tc110OrderProduct(WebDriver driver, String userName, String password, String firstName, String lastName, String postalCode) {
-
+    public static void tc110OrderProduct(
+            WebDriver driver,
+            String userName,
+            String password,
+            String firstName,
+            String lastName,
+            String postalCode
+    ) {
         step2(driver, userName, password);
         step3(driver, "#add-to-cart-sauce-labs-backpack");
         step4(driver, ".shopping_cart_link");
